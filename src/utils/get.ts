@@ -32,7 +32,7 @@ function toKey(value: unknown): string | symbol {
 const IS_DEEP_PROP_REGEX = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/,
       IS_PLAIN_PROP_REGEX = /^\w*$/;
 
-function isKey(value: any, object: any): boolean {
+function isKey(value: unknown, object: unknown): boolean {
    if (Array.isArray(value)) {
       return false;
    }
@@ -93,7 +93,7 @@ function stringToPath(str: string): string[] {
    return result;
 }
 
-function createPathArray(value: any, object: any): string[] {
+function createPathArray(value: unknown, object: unknown): string[] {
    if (Array.isArray(value)) {
       return value;
    }
@@ -127,6 +127,11 @@ function get<TResult = unknown>(
    obj: unknown,
    path: StringRepresentable | StringRepresentable[],
    defaultValue?: TResult
+): TResult | undefined
+function get<TResult = unknown>(
+   obj: unknown,
+   path: StringRepresentable | StringRepresentable[],
+   defaultValue?: TResult
 ): TResult | undefined {
    if (!isObject(obj)) {
       return defaultValue;
@@ -139,7 +144,7 @@ function get<TResult = unknown>(
        resultObj: unknown = obj;
 
    while (resultObj !== null && resultObj !== undefined && index < length) {
-      resultObj = (resultObj as any)[toKey(pathArray[index])];
+      resultObj = (resultObj as Record<string, object>)[toKey(pathArray[index]) as string];
 
       index += 1;
    }

@@ -9,5 +9,6 @@ import { isObject } from './is-object';
  * @returns `true` if `o` is `Promise`-like (i.e. has a `then` function)
  */
 export function isPromiseLike(o: unknown): o is PromiseLike<unknown> {
+   // eslint-disable-next-line @typescript-eslint/no-explicit-any
    return isPromise(o) || (isObject(o) && typeof (o as any).then === 'function');
 }
