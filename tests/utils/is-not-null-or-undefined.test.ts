@@ -8,14 +8,12 @@ describe('isNotNullOrUndefined', () => {
 
       const arrA = [ 0, 1, 2, null, 3, undefined, 4, '', 'foo' ];
 
-      // Cannot assign `arrB = arrA` since arrB won't allow null or undefined.
-      let arrB: (number | string)[];
-
       const arrC = arrA.filter(t.isNotNullOrUndefined);
 
+      // Cannot assign `arrB = arrA` since arrB won't allow null or undefined.
       // CAN assign `arrB = arrC` since arrC has now had all null and undefined values
       // removed.
-      arrB = arrC;
+      const arrB: (number | string)[] = arrC;
 
       expect(arrB).to.eql([ 0, 1, 2, 3, 4, '', 'foo' ]);
 
