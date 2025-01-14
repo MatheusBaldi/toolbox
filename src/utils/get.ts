@@ -42,8 +42,9 @@ function isKey(value: unknown, object: unknown): boolean {
       return true;
    }
 
-   return IS_PLAIN_PROP_REGEX.test(value) || !IS_DEEP_PROP_REGEX.test(value) ||
-      (object !== null && object !== undefined && value in Object(object));
+   return IS_PLAIN_PROP_REGEX.test(value as string)
+      || !IS_DEEP_PROP_REGEX.test(value as string)
+      || (object !== null && object !== undefined && value as string in Object(object));
 }
 
 const DOT_CHAR_CODE = '.'.charCodeAt(0),
@@ -98,7 +99,7 @@ function createPathArray(value: unknown, object: unknown): string[] {
       return value;
    }
 
-   return isKey(value, object) ? [ value ] : stringToPath(value);
+   return isKey(value, object) ? [ value as string ] : stringToPath(value as string);
 }
 
 interface StringRepresentable {
